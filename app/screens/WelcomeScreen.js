@@ -2,10 +2,9 @@ import React, { cloneElement } from "react";
 import { ImageBackground, View, StyleSheet, Image, Text } from "react-native";
 
 import AppButton from "../components/AppButton";
+import routes from "../Navigators/routes";
 
-import colors from "../config/colors";
-
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       blurRadius={10}
@@ -17,8 +16,15 @@ function WelcomeScreen(props) {
         <Text style={styles.tagline}>Seel What You Don't Need</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="Login" />
-        <AppButton title="Register" color="secondary" />
+        <AppButton
+          title="Login"
+          onPress={() => navigation.navigate(routes.LOGIN)}
+        />
+        <AppButton
+          title="Register"
+          onPress={() => navigation.navigate(routes.REGISTER)}
+          color="secondary"
+        />
       </View>
     </ImageBackground>
   );

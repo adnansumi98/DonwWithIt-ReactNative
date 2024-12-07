@@ -1,10 +1,12 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import { ListItem, ListItemSeperator } from "../components/list";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import Icon from "../components/Icon";
-import { ListItem, ListItemSeperator } from "../components/list";
+import routes from "../Navigators/routes";
 
 const menuItems = [
   {
@@ -20,19 +22,19 @@ const menuItems = [
       name: "email",
       backgroundColor: colors.secondary,
     },
+    targetScreen: routes.MESSAGE,
   },
 ];
 
-function AccountScreen(props) {
+function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <View style={styles.container}>
-        <ListItem
-          title="Mosh Hamedani"
-          subTitle="programmingwithmosh@gmail.com"
-          image={require("../assets/mosh.jpg")}
-        />
-      </View>
+      <ListItem
+        title="Mosh Hamedani"
+        subTitle="programmingwithmosh@gmail.com"
+        image={require("../assets/mosh.jpg")}
+        style={{}}
+      />
       <View style={styles.container}>
         <FlatList
           data={menuItems}
@@ -47,16 +49,15 @@ function AccountScreen(props) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
+              onPress={() => navigation.navigate(item.targetScreen)}
             />
           )}
         />
       </View>
-      <View style={styles.container}>
-        <ListItem
-          title="Log Out"
-          IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-        />
-      </View>
+      <ListItem
+        title="Log Out"
+        IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+      />
     </Screen>
   );
 }

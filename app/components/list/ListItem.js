@@ -1,7 +1,7 @@
 import React, { cloneElement } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Swipeable from "react-native-gesture-handler";
+import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
@@ -20,29 +20,32 @@ function ListItem({
   renderRightActions,
 }) {
   return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight onPress={onPress} underlayColor={colors.light}>
-        <View style={styles.container}>
-          {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
-          <View style={styles.detailsContainer}>
-            <AppText style={styles.title} numberOfLines={1}>
-              {title}
-            </AppText>
-            {subTitle && (
-              <AppText style={styles.subTitle} numberOfLines={2}>
-                {subTitle}
+    <GestureHandlerRootView style={{ flex: 0 }}>
+      {/* // it always assumes flex to be 1 */}
+      <Swipeable renderRightActions={renderRightActions}>
+        <TouchableHighlight onPress={onPress} underlayColor={colors.light}>
+          <View style={styles.container}>
+            {IconComponent}
+            {image && <Image style={styles.image} source={image} />}
+            <View style={styles.detailsContainer}>
+              <AppText style={styles.title} numberOfLines={1}>
+                {title}
               </AppText>
-            )}
+              {subTitle && (
+                <AppText style={styles.subTitle} numberOfLines={2}>
+                  {subTitle}
+                </AppText>
+              )}
+            </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={25}
+              color={colors.medium}
+            />
           </View>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={25}
-            color={colors.medium}
-          />
-        </View>
-      </TouchableHighlight>
-    </Swipeable>
+        </TouchableHighlight>
+      </Swipeable>
+    </GestureHandlerRootView>
   );
 }
 
